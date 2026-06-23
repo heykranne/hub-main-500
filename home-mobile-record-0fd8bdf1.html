@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>九游娱乐 · 日常灵感杂志</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            min-height: 100vh;
+            background: linear-gradient(145deg, #fae8d1 0%, #f6d5b3 40%, #edc9a4 100%);
+            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Noto Sans SC', sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 1.5rem 1rem 2.5rem;
+        }
+        .magazine {
+            max-width: 820px;
+            width: 100%;
+            background: rgba(255, 252, 245, 0.7);
+            backdrop-filter: blur(4px);
+            border-radius: 4rem 1.5rem 4rem 1.5rem;
+            box-shadow: 0 20px 40px rgba(140, 80, 30, 0.12), 0 8px 20px rgba(0, 0, 0, 0.04);
+            padding: 2.5rem 2rem;
+            transition: all 0.2s ease;
+        }
+        @media (max-width: 600px) {
+            .magazine {
+                padding: 1.8rem 1.2rem;
+                border-radius: 3rem 1rem 3rem 1rem;
+            }
+            body {
+                padding: 0.8rem 0.6rem 1.8rem;
+            }
+        }
+
+        /* 专题头 */
+        .hero {
+            text-align: center;
+            padding: 0.2rem 0 2rem;
+            border-bottom: 1px dashed rgba(180, 120, 70, 0.3);
+        }
+        .hero h1 {
+            font-size: 2.8rem;
+            font-weight: 540;
+            letter-spacing: 4px;
+            color: #5f3e28;
+            text-shadow: 0 2px 6px rgba(180, 120, 60, 0.2);
+            margin-bottom: 0.6rem;
+            word-break: keep-all;
+        }
+        .hero .byline {
+            font-size: 0.9rem;
+            color: #a07a5a;
+            letter-spacing: 2px;
+            border-top: 1px solid #dbbc9b;
+            display: inline-block;
+            padding-top: 0.6rem;
+        }
+        .hero .byline span {
+            background: #e7cfb5;
+            padding: 0.1rem 1rem;
+            border-radius: 20px;
+            color: #4d3424;
+        }
+
+        /* 背景说明模块 */
+        .context-block {
+            background: #fffaf4;
+            padding: 1.8rem 2rem;
+            border-radius: 3rem 1rem 3rem 1rem;
+            margin: 2rem 0 2.2rem;
+            box-shadow: inset 0 2px 8px rgba(200, 150, 100, 0.08);
+            border-left: 6px solid #dbb28d;
+        }
+        .context-block p {
+            font-size: 1.05rem;
+            line-height: 1.7;
+            color: #3f2e1f;
+        }
+        .context-block strong {
+            color: #7d5b3e;
+            font-weight: 580;
+        }
+
+        /* 三段介绍卡片网格 */
+        .card-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 1.5rem;
+            margin: 2rem 0 1.5rem;
+        }
+        @media (max-width: 660px) {
+            .card-grid {
+                grid-template-columns: 1fr;
+                gap: 1.2rem;
+            }
+        }
+        .card {
+            background: white;
+            border-radius: 2.2rem 1rem 2.2rem 1rem;
+            padding: 1.8rem 1.4rem 2rem;
+            box-shadow: 0 10px 20px -8px rgba(150, 100, 50, 0.15);
+            transition: transform 0.15s, box-shadow 0.2s;
+            display: flex;
+            flex-direction: column;
+        }
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 18px 28px -12px rgba(130, 80, 40, 0.2);
+        }
+        .card .num {
+            display: inline-block;
+            background: #f0dccb;
+            color: #5f3b24;
+            font-size: 0.8rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            padding: 0.15rem 0.9rem;
+            border-radius: 30px;
+            margin-bottom: 0.8rem;
+            width: fit-content;
+        }
+        .card h3 {
+            font-size: 1.2rem;
+            font-weight: 550;
+            color: #4b321f;
+            margin-bottom: 0.7rem;
+            border-left: 3px solid #dbaa7a;
+            padding-left: 0.7rem;
+        }
+        .card p {
+            font-size: 0.95rem;
+            line-height: 1.65;
+            color: #3f3022;
+            flex: 1;
+        }
+        .card .tag {
+            margin-top: 1rem;
+            font-size: 0.8rem;
+            color: #9b7a5f;
+            background: #f7efe6;
+            padding: 0.2rem 0.8rem;
+            border-radius: 20px;
+            align-self: flex-start;
+        }
+
+        /* 杂志引语 / 插入句 */
+        .pull-quote {
+            margin: 2rem 0 1.8rem;
+            padding: 1rem 2rem 1rem 2.4rem;
+            background: #f4e7db;
+            border-radius: 30px 8px 30px 8px;
+            font-style: normal;
+            color: #453322;
+            font-size: 1.05rem;
+            line-height: 1.6;
+            border-right: 4px solid #cfa27b;
+        }
+        .pull-quote a {
+            color: #7a5235;
+            text-decoration: none;
+            font-weight: 560;
+            border-bottom: 2px dotted #cfa27b;
+            transition: border 0.15s;
+        }
+        .pull-quote a:hover {
+            border-bottom: 2px solid #7a5235;
+        }
+
+        /* FAQ摘要 简约 */
+        .faq-digest {
+            background: #fbf4ec;
+            padding: 1.4rem 1.8rem;
+            border-radius: 2rem 0.6rem 2rem 0.6rem;
+            margin: 1.8rem 0 1.2rem;
+        }
+        .faq-digest details {
+            margin-bottom: 0.6rem;
+            font-size: 0.95rem;
+            color: #3d2c1e;
+            border-bottom: 1px solid #e6d2bf;
+            padding-bottom: 0.5rem;
+        }
+        .faq-digest details[open] {
+            border-bottom-color: #d2b397;
+        }
+        .faq-digest summary {
+            font-weight: 530;
+            cursor: pointer;
+            padding: 0.3rem 0;
+            color: #5a3d2a;
+            list-style: none;
+            display: flex;
+            align-items: center;
+        }
+        .faq-digest summary::before {
+            content: "▸";
+            margin-right: 0.6rem;
+            color: #b5835e;
+            font-size: 1rem;
+        }
+        .faq-digest details[open] summary::before {
+            content: "▾";
+        }
+        .faq-digest .answer {
+            padding: 0.5rem 0.2rem 0.2rem 1.5rem;
+            color: #4d3828;
+            line-height: 1.5;
+        }
+
+        /* 页尾 */
+        .page-footer {
+            margin-top: 2.4rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid #e0cbaf;
+            text-align: center;
+            font-size: 0.95rem;
+            color: #6b4f37;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            gap: 0.6rem 1rem;
+        }
+        .page-footer .dot {
+            color: #c7a382;
+        }
+        .page-footer a {
+            display: inline-block;
+            background: #dbb28d;
+            color: #2f1f13;
+            text-decoration: none;
+            padding: 0.4rem 1.8rem;
+            border-radius: 40px;
+            font-weight: 520;
+            letter-spacing: 1px;
+            transition: background 0.2s, box-shadow 0.15s;
+            box-shadow: 0 2px 6px rgba(170, 115, 60, 0.2);
+        }
+        .page-footer a:hover {
+            background: #cf9f72;
+            box-shadow: 0 4px 12px rgba(150, 90, 40, 0.25);
+        }
+        .page-footer .muted {
+            color: #8f735a;
+            font-size: 0.9rem;
+        }
+
+        hr {
+            border: none;
+            border-top: 1px solid #dec9b0;
+            margin: 1.2rem 0;
+        }
+    </style>
+</head>
+<body>
+<div class="magazine">
+
+    <!-- hero 横幅 -->
+    <div class="hero">
+        <h1>九游娱乐</h1>
+        <div class="byline"><span>· 日常即兴 · 放松指南 ·</span></div>
+    </div>
+
+    <!-- 背景说明 -->
+    <div class="context-block">
+        <p><strong>九游</strong> 这个词，让人想到假日午后、好友连线、以及屏幕那头的微光。它不单是一个平台的名字，更像一种生活里的轻快节拍——在忙碌缝隙中，给自己一段自由呼吸的间隙。<br>
+        从休闲小游戏到策略闯关，从解压小剧场到多人派对，九游一直陪伴着那些愿意“偷得半日闲”的玩家。这里的底色是放松，是探索，也是和世界保持有趣的联系。
+        </p>
+    </div>
+
+    <!-- 三段介绍卡片 -->
+    <div class="card-grid">
+        <div class="card">
+            <span class="num">01 节奏</span>
+            <h3>随开随玩</h3>
+            <p>不需要复杂的教程，不用记忆冗长的设定。打开就能进入状态，几分钟就能收获一次小小的成就感。适合通勤、排队、睡前这些零碎但珍贵的时刻。</p>
+            <span class="tag">#轻量体验</span>
+        </div>
+        <div class="card">
+            <span class="num">02 聚场</span>
+            <h3>呼朋唤友</h3>
+            <p>一个人玩是专注，一群人玩是热闹。九游里的多人派对、实时对战，总能制造出意外的笑点。语音里传来的惊呼和大笑，才是娱乐该有的声音。</p>
+            <span class="tag">#社交时刻</span>
+        </div>
+        <div class="card">
+            <span class="num">03 探索</span>
+            <h3>总有新发现</h3>
+            <p>从怀旧像素到精致手绘，从模拟经营到叙事解谜。这里像一家永不歇业的游乐市集，每次闲逛都能撞见让人眼前一亮的创意。保持好奇，就有惊喜。</p>
+            <span class="tag">#宝藏挖掘</span>
+        </div>
+    </div>
+
+    <!-- 嵌入链接的引语 -->
+    <div class="pull-quote">
+        “无论是想短暂放空，还是渴望一场线上聚会，<a href="https://home-mobile-jiuyou.com">九游娱乐</a> 总能提供刚刚好的陪伴。它的魅力，恰恰在于把选择权交给每一个想放松的人。”
+    </div>
+
+    <!-- FAQ 摘要 (自然融入) -->
+    <div class="faq-digest">
+        <details>
+            <summary>在九游能找到什么类型的游戏？</summary>
+            <div class="answer">从消除、跑酷、模拟经营到策略卡牌、休闲竞技，种类很杂，但都偏向轻松上手。适合不同年龄和喜好。</div>
+        </details>
+        <details>
+            <summary>是否需要注册才能体验？</summary>
+            <div class="answer">多数内容支持快速试玩，深度功能可自由选择是否创建账号。一切以方便为前提。</div>
+        </details>
+        <details>
+            <summary>和朋友一起玩方便吗？</summary>
+            <div class="answer">相当方便。创建房间、分享邀请、语音互动，整个流程都很流畅。约局不用等。</div>
+        </details>
+    </div>
+
+    <!-- 页尾访问提示 -->
+    <div class="page-footer">
+        <span class="muted">找到属于你的娱乐节奏</span>
+        <span class="dot">·</span>
+        <a href="https://home-mobile-jiuyou.com">九游娱乐</a>
+        <span class="dot">·</span>
+        <span class="muted">在手机端开启更多可能</span>
+    </div>
+
+    <!-- 极简脚注装饰 -->
+    <hr>
+    <div style="text-align: center; font-size:0.75rem; color:#b19379; letter-spacing: 1px; margin-top: 0.2rem;">
+        <span>✦ 放松 探索 连接 ✦</span>
+    </div>
+</div>
+</body>
+</html>
